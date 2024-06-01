@@ -16,12 +16,13 @@ type Todo struct {
 
 func GetTodos(c *fiber.Ctx) error {
 	var todos []Todo
+
 	cursor, err := db.Collection.Find(context.Background(), bson.M{})
 	if err != nil {
 		log.Fatal(err)
 		return c.Status(500).SendString("Failed to retrieve todos")
 	}
-	defer cursor.Close(context.Background()) // Postpone the other function call until the function completes
+	defer cursor.Close(context.Background())
 
 	for cursor.Next(context.Background()) {
 		var todo Todo
@@ -36,5 +37,6 @@ func GetTodos(c *fiber.Ctx) error {
 		log.Fatal(err)
 		return c.Status(500).SendString("Cursor error")
 	}
+
 	return c.JSON(todos)
 }
