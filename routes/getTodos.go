@@ -1,14 +1,19 @@
 package routes
 
-import ("github.com/gofiber/fiber/v2"
-"db\db.go")
+import (/* 
+	"context"
+	"github.com/MdSadiqMd/TaskFlow/db" */
+	"github.com/gofiber/fiber/v2"
+	/* "go.mongodb.org/mongo-driver/bson"
+	"log" */
+)
 
 type Todo struct {
-	ID        int    `json:"id" bson="_id"`
+	ID        int    `json:"id" bson:"_id"`
 	Completed bool   `json:"completed"`
 	Body      string `json:"body"`
 }
 
-func getTodos(c *fiber.Ctx) error{
-	var todos []Todo
+func GetTodos(c *fiber.Ctx) error { 
+	return c.Status(200).JSON(fiber.Map{"msg": "hello world"})
 }

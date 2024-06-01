@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
+	"github.com/MdSadiqMd/TaskFlow/db"
+	"github.com/MdSadiqMd/TaskFlow/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
-	"Sadiq/TaskFlow/routes"
 	"log"
 	"os"
 )
-
 
 func main() {
 	fmt.Println("Hello World")
@@ -20,15 +20,22 @@ func main() {
 	var p *int = &x
 	fmt.Println(p)
 	fmt.Println(*p) */
-	err := godotenv.Load("env")
+	fmt.Println("Hello World")
+
+	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal("Error in loading .env File")
+		log.Fatal("Error loading .env file")
 	}
 	PORT := os.Getenv("PORT")
+	if PORT == "" {
+		PORT = ":3000"
+	}
+
 	app := fiber.New()
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Status(200).JSON(fiber.Map{"msg": "hello world"})
 	})
-	app.Get("/api/todos", routes.getTodos)
-	log.Fatal(app.Listen("0.0.0.0" + PORT))
+	app.Get("/connectDB", db.ConnectDB)
+	app.Get("/api/todos", routes.GetTodos)
+	log.Fatal(app.Listen(PORT))
 }

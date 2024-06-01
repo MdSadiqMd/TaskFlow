@@ -1,4 +1,4 @@
-module github.com/MdSadiqMd/TaskFlow.git
+module github.com/MdSadiqMd/TaskFlow
 
 go 1.18
 
