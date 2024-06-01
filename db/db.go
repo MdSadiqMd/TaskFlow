@@ -32,6 +32,7 @@ func ConnectDB() error {
 		log.Fatal(err)
 		return err
 	}
+	defer client.Disconnect(context.Background())
 
 	err = client.Ping(context.Background(), nil)
 	if err != nil {

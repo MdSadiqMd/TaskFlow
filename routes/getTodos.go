@@ -1,11 +1,12 @@
 package routes
 
-import ( /*
-		"context"*/
+import (
+	"context"
 	"github.com/MdSadiqMd/TaskFlow/db"
 	"github.com/gofiber/fiber/v2"
-	/* "go.mongodb.org/mongo-driver/bson"
-	"log" */)
+	"go.mongodb.org/mongo-driver/bson"
+	"log"
+)
 
 type Todo struct {
 	ID        int    `json:"id" bson:"_id"`
@@ -14,8 +15,26 @@ type Todo struct {
 }
 
 func GetTodos(c *fiber.Ctx) error {
-	app := fiber.New()
-	app.Get("/connectDB", db.ConnectDB)
 	var todos []Todo
-	cursor,err:=db.ConnectDB().collection.Find()
+	cursor, err := db.Collection.Find(context.Background(), bson.M{})
+	if err != nil {
+		log.Fatal(err)
+		return c.Status(500).SendString("Failed to retrieve todos")
+	}
+	defer cursor.Close(context.Background()) // Postpone the other function call until the function completes
+
+	for cursor.Next(context.Background()) {
+		var todo Todo
+		if err := cursor.Decode(&todo); err != nil {
+			log.Fatal(err)
+			return c.Status(500).SendString("Failed to decode todo")
+		}
+		todos = append(todos, todo)
+	}
+
+	if err := cursor.Err(); err != nil {
+		log.Fatal(err)
+		return c.Status(500).SendString("Cursor error")
+	}
+	return c.JSON(todos)
 }
