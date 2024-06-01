@@ -38,5 +38,6 @@ func main() {
 		log.Fatal("Failed to connect to MongoDB")
 	}
 	app.Get("/api/todos", routes.GetTodos)
+	app.Get("/api/todos", routes.CreateTodo)
 	log.Fatal(app.Listen(PORT))
 }

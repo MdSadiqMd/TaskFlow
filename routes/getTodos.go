@@ -33,5 +33,5 @@ func GetTodos(c *fiber.Ctx) error {
 		return c.Status(500).SendString("Cursor error")
 	}
 
-	return c.JSON(todos)
+	return c.Status(201).JSON(todos)
 }
