@@ -20,8 +20,6 @@ func main() {
 	var p *int = &x
 	fmt.Println(p)
 	fmt.Println(*p) */
-	fmt.Println("Hello World")
-
 	err := godotenv.Load(".env")
 	if err != nil {
 		log.Fatal("Error loading .env file")
@@ -35,7 +33,10 @@ func main() {
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Status(200).JSON(fiber.Map{"msg": "hello world"})
 	})
-	app.Get("/connectDB", db.ConnectDB)
+	err = db.ConnectDB()
+	if err != nil {
+		log.Fatal("Failed to connect to MongoDB")
+	}
 	app.Get("/api/todos", routes.GetTodos)
 	log.Fatal(app.Listen(PORT))
 }
