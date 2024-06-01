@@ -40,5 +40,6 @@ func main() {
 	app.Get("/api/todos", routes.GetTodos)
 	app.Get("/api/todos", routes.CreateTodo)
 	app.Get("/api/todos", routes.UpdateTodo)
+	app.Get("/api/todos", routes.DeleteTodo)
 	log.Fatal(app.Listen(PORT))
 }
