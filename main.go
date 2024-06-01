@@ -4,12 +4,18 @@ import (
 	"fmt"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
+	/* "go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive" */
+	"go.mongodb.org/mongo-driver/mongo"
+	/* "go.mongodb.org/mongo-driver/mongo/options" */
 	"log"
 	"os"
 )
 
+var collection *mongo.Collection
+
 type Todo struct {
-	ID        int    `json:"id"`
+	ID        int    `json:"id" bson="_id"`
 	Completed bool   `json:"completed"`
 	Body      string `json:"body"`
 }
@@ -30,21 +36,8 @@ func main() {
 	fmt.Println(p)
 	fmt.Println(*p) */
 	app := fiber.New()
-	todos := []Todo{}
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Status(200).JSON(fiber.Map{"msg": "hello world"})
-	})
-	app.Post("/api/todos", func(c *fiber.Ctx) error {
-		todo := &Todo{}
-		if err := c.BodyParser(todo); err != nil {
-			return err
-		}
-		if todo.Body == "" {
-			return c.Status(400).JSON(fiber.Map{"error": "Empty todo cannot be created"})
-		}
-		todo.ID = len(todos) + 1
-		todos = append(todos) + 1
-		return c.Status(201).JSON(todo)
 	})
 	log.Fatal(app.Listen(":" + PORT))
 }
