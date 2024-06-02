@@ -21,11 +21,9 @@ const TodoForm = () => {
           body: JSON.stringify({ body: newTodo }),
         });
         const data = await res.json();
-
         if (!res.ok) {
           throw new Error(data.error || "Something went wrong");
         }
-
         setNewTodo("");
         return data;
       } catch (error: any) {
@@ -62,4 +60,5 @@ const TodoForm = () => {
     </form>
   );
 };
+
 export default TodoForm;

@@ -9,7 +9,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   const queryClient = useQueryClient();
 
   const { mutate: updateTodo, isPending: isUpdating } = useMutation({
-    mutationKey: ["updateTodo"],
+    mutationKey: ["UpdateTodo"],
     mutationFn: async () => {
       if (todo.completed) return alert("Todo is already completed");
       try {

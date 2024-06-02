@@ -28,12 +28,14 @@ func main() {
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = ":3000"
+	} else {
+		PORT = ":" + PORT
 	}
 
 	app := fiber.New()
 	app.Use(cors.New(cors.Config{
-		AllowOrigins: "http:localhost:5173",
-		AllowHeaders: "Origin,Content-type,Accept",
+		AllowOrigins: "http://localhost:5173",
+		AllowHeaders: "Origin,Content-Type,Accept",
 	}))
 
 	app.Get("/", func(c *fiber.Ctx) error {
@@ -44,8 +46,8 @@ func main() {
 		log.Fatal("Failed to connect to MongoDB")
 	}
 	app.Get("/api/todos", routes.GetTodos)
-	app.Get("/api/todos", routes.CreateTodo)
-	app.Get("/api/todos", routes.UpdateTodo)
-	app.Get("/api/todos", routes.DeleteTodo)
+	app.Post("/api/todos", routes.CreateTodo)
+	app.Patch("/api/todos/:id", routes.UpdateTodo)
+	app.Delete("/api/todos/:id", routes.DeleteTodo)
 	log.Fatal(app.Listen(PORT))
 }
