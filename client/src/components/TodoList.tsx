@@ -47,7 +47,12 @@ const TodoList = () => {
       )}
       {!isLoading && todos?.length === 0 && (
         <Stack alignItems={"center"} gap="3">
-          <Text marginTop={"30px"} fontSize={"3xl"} textAlign={"center"} color={"gray.500"}>
+          <Text
+            marginTop={"30px"}
+            fontSize={"3xl"}
+            textAlign={"center"}
+            color={"gray.500"}
+          >
             All tasks completed! 🤞
           </Text>
         </Stack>
