@@ -5,6 +5,7 @@ import (
 	"github.com/MdSadiqMd/TaskFlow/db"
 	"github.com/MdSadiqMd/TaskFlow/routes"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/joho/godotenv"
 	"log"
 	"os"
@@ -30,6 +31,11 @@ func main() {
 	}
 
 	app := fiber.New()
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http:localhost:5173",
+		AllowHeaders: "Origin,Content-type,Accept",
+	}))
+
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Status(200).JSON(fiber.Map{"msg": "hello world"})
 	})
