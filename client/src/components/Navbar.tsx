@@ -16,7 +16,7 @@ export default function Navbar() {
   return (
     <Container maxW={"900px"}>
       <Box
-        bg={useColorModeValue("gray.400", "gray.700")}
+        bg={useColorModeValue("gray.200", "gray.700")}
         px={4}
         my={4}
         borderRadius={"5"}
@@ -29,7 +29,15 @@ export default function Navbar() {
             gap={3}
             display={{ base: "none", sm: "flex" }}
           >
-            <Text>TaskFlow 📝</Text>
+            <Text
+              bgGradient="linear(to-r, green.200, pink.500)"
+              bgClip="text"
+              fontSize="4xl"
+              fontWeight="extrabold"
+            >
+              TaskFlow
+            </Text>
+            <Text fontSize="3xl">📝</Text>
           </Flex>
 
           {/* RIGHT SIDE */}

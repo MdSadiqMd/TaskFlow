@@ -1,4 +1,11 @@
-import { Button, Flex, Input, Spinner } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Input,
+  Spinner,
+  useColorModeValue,
+  Text,
+} from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
@@ -40,8 +47,17 @@ const TodoForm = () => {
 
   return (
     <form onSubmit={createTodo}>
+      <Text
+        bgGradient="linear(to-r, teal.500, green.500)"
+        bgClip="text"
+        fontSize="xl"
+        fontWeight="semibold"
+      >
+        Create Task
+      </Text>
       <Flex gap={2}>
         <Input
+          bg={useColorModeValue("gray.150", "gray.700")}
           type="text"
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
