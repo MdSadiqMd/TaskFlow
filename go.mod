@@ -1,6 +1,6 @@
 module github.com/MdSadiqMd/TaskFlow
 
-go 1.18
+go 1.20
 
 require (
 	github.com/gofiber/fiber/v2 v2.52.4
