@@ -2,8 +2,6 @@ module github.com/MdSadiqMd/TaskFlow
 
 go 1.22
 
-toolchain go1.22.4
-
 require (
 	github.com/gofiber/fiber/v2 v2.52.4
 	go.mongodb.org/mongo-driver v1.15.0
