@@ -21,12 +21,12 @@ func main() {
 	var p *int = &x
 	fmt.Println(p)
 	fmt.Println(*p) */
-	if os.Getenv("ENV") != "production" {
+	/* if os.Getenv("ENV") != "production" {
 		err := godotenv.Load(".env")
 		if err != nil {
 			log.Fatal("Error loading .env file", err)
 		}
-	}
+	} */
 	PORT := os.Getenv("PORT")
 	if PORT == "" {
 		PORT = ":3000"
@@ -55,9 +55,9 @@ func main() {
 	app.Patch("/api/todos/:id", routes.UpdateTodo)
 	app.Delete("/api/todos/:id", routes.DeleteTodo)
 
-	if os.Getenv("ENV") == "production" {
+	/* if os.Getenv("ENV") == "production" {
 		app.Static("/", "./client/dist")
-	}
-
+	} */
+	app.Static("/", "./client/dist")
 	log.Fatal(app.Listen("0.0.0.0" + PORT))
 }
