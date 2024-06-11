@@ -24,7 +24,7 @@ func main() {
 	if os.Getenv("ENV") != "production" {
 		err := godotenv.Load(".env")
 		if err != nil {
-			log.Fatal("Error loading .env file")
+			log.Fatal("Error loading .env file", err)
 		}
 	}
 	PORT := os.Getenv("PORT")
@@ -59,5 +59,5 @@ func main() {
 		app.Static("/", "./client/dist")
 	}
 
-	log.Fatal(app.Listen("0.0.0.0"+PORT))
+	log.Fatal(app.Listen("0.0.0.0" + PORT))
 }
